@@ -10,7 +10,7 @@ app.use(cors());
 app.use(bodyParser.json())
 app.use(express.json())
 
-mongoose.connect('mongodb+srv://realmm:realmmPassword@atlascluster.cinwufg.mongodb.net/userData'
+mongoose.connect('url'
 ).then(() => {
     console.log("Connected to MongoDB Atlas");
 }).catch((err) => {
@@ -97,10 +97,10 @@ import { App, Credentials } from "realm-web";
 import { google } from "googleapis";
 import axios from "axios";
 const BASE_URL = `http://localhost:5500`;
-const GOOGLE_CLIENT_ID = '932506994363-drmn01grg6fkrsjm2d84ngoq360h8om6.apps.googleusercontent.com';
+const GOOGLE_CLIENT_ID = 'client id';
 console.log(GOOGLE_CLIENT_ID);
-const GOOGLE_CLIENT_SECRET = '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';
-const GOOGLE_PROJECT_ID = 'project1-420703';
+const GOOGLE_CLIENT_SECRET = 'secret';
+const GOOGLE_PROJECT_ID = 'project';
 
 const oauthConfig = {
   client_id: GOOGLE_CLIENT_ID,
@@ -127,7 +127,7 @@ const oauth2Client = new OAuth2(
 );
 
 const realmApp = new App({
-  id: 'users-ekiix',
+  id: 'realmid',
 });
 
 app.get("/", function (req, res) {
@@ -179,8 +179,8 @@ app.get("/auth/google/callback", function (req, res, errorHandler) {
 
 
 
-const FACEBOOK_APP_ID = '1148896139479819';
-const FACEBOOK_APP_SECRET = '53d454b82431b85d02201e70a40b9037'
+const FACEBOOK_APP_ID = 'fbid';
+const FACEBOOK_APP_SECRET = 'fbsecret'
 
 
 
