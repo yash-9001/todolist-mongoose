@@ -158,7 +158,6 @@ app.get("/auth/google/callback", function (req, res, errorHandler) {
         console.log("signed in as Realm user", user.id , user);
         const vueAppUrl = `http://localhost:5173/home?userId=${user.id}&email=${user.profile.email}&name=${user.profile.name}`;
         return res.redirect(vueAppUrl, '_blank', 'width=600,height=800');
-
       } catch (error) {
         errorHandler(error);
       }
@@ -177,7 +176,6 @@ app.get('/auth/facebook', (req, res) => {
   res.redirect(authUrl);
 });
 
-// Facebook OAuth Callback
 app.get('/auth/facebook/callback', async (req, res) => {
   const { code } = req.query;
   console.log("code", code);
