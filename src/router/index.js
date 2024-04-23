@@ -41,13 +41,24 @@ const router = createRouter({
 })
 export default router;
 
+// const taskStore = useTaskStore();
 const loggedIn = ref()
 router.beforeEach((to) => {
   if (to.redirectedFrom) {
     loggedIn.value = to.redirectedFrom;
-    if (loggedIn.value) {
+    if (loggedIn.value && !JSON.parse(localStorage.getItem('isLoggedIn'))) {
       localStorage.setItem('isLoggedIn', true)
       localStorage.setItem('currentUser', loggedIn.value.query.userId)
+      const userObj = {};
+      userObj.userId = loggedIn.value.query.userId;
+      userObj.name = loggedIn.value.query.name;
+      userObj.email = loggedIn.value.query.email;
+      if(loggedIn.value.query.pictureUrl){
+        userObj.pictureUrl = loggedIn.value?.query?.pictureUrl + "&access_token=" + loggedIn.value?.query?.access_token[0];
+        localStorage.setItem('fbProfile', JSON.stringify(userObj))
+      }else{
+        localStorage.setItem('fbProfile', JSON.stringify(userObj))
+      }
     }
   }
   let currentUser = localStorage.getItem('currentUser');
@@ -73,8 +84,7 @@ router.beforeEach((to) => {
   if (isLoggedIn && isRegistered) {
     if (to.name == 'login' || to.name == 'register') {
       toast.success("User Logged In Successfully")
-      return { name: 'home' }
+      return{ name: 'home' }
     }
   }
-
 })

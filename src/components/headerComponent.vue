@@ -25,6 +25,7 @@ onMounted(() => {
 const logoutUser = () => {
   localStorage.setItem("isLoggedIn", false);
   localStorage.setItem("currentUser", "");
+  localStorage.setItem("fbProfile", "");
   toast.success("User LoggedOut Successfully");
 };
 </script>

@@ -1,5 +1,6 @@
 <template>
-    <meta name="google-signin-client_id" content="818610849122-kflueb7usdpa3uest8tvibf8kmkedcid.apps.googleusercontent.com">
+    <meta name="google-signin-client_id"
+        content="818610849122-kflueb7usdpa3uest8tvibf8kmkedcid.apps.googleusercontent.com">
     <div class="container">
         <h1>Login</h1>
         <form class="form" @submit.prevent="loginUser">
@@ -14,13 +15,13 @@
                 <p id="warnPassword" v-if="warnpass">Please Enter your Password.</p>
             </div>
             <button class="btn">Login</button>
-            <h5 @click="registerUser" >Create an Account</h5>
+            <h5 @click="registerUser">Create an Account</h5>
             <!-- <a href="http://localhost:5500">Login With Google</a> -->
 
             <label id="socialLabel">Login with : </label>
             <div id="socialBtn">
-            <button @click="loginWithGoogle" class="btn" id="google">Google</button>
-            <button @click="loginWithFacebook" class="btn" id="facebook">Facebook</button>
+                <button @click="loginWithGoogle" class="btn" id="google">Google</button>
+                <button @click="loginWithFacebook" class="btn" id="facebook">Facebook</button>
             </div>
             <!-- <a href="http://localhost:5501/auth/facebook">Login With Facebook</a> -->
         </form>
@@ -85,29 +86,39 @@ const registerUser = () => {
 
 const loginWithGoogle = () => {
     const width = 600;
-    const height = 400;
+    const height = 600;
     const left = window.screen.width / 2 - width / 2;
     const top = window.screen.height / 2 - height / 2;
-
-    const facebookLoginWindow = window.open('http://localhost:5500', 'Google Login', `width=${width},height=${height},left=${left},top=${top}`);
-    setTimeout(() => {
+    const facebookLoginWindow = window.open('http://localhost:5500/auth/google', 'Google Login', `width=${width},height=${height},left=${left},top=${top}`);
+    warnmail.value = false
+    warnpass.value = false
+    window.addEventListener('storage', () => {
+        if (JSON.parse(localStorage.getItem('isLoggedIn'))) {
             facebookLoginWindow.close();
-            router.push({ name: 'home' });
-    }, 1455);
+                router.push({ name: 'home' });
+        } else {
+            toast.info('login')
+        }
+    })
+
 };
 
 const loginWithFacebook = () => {
     // Calculate the position to center the window
     const width = 600;
-    const height = 400;
+    const height = 600;
     const left = window.screen.width / 2 - width / 2;
     const top = window.screen.height / 2 - height / 2;
 
     const facebookLoginWindow = window.open('http://localhost:5500/auth/facebook', 'Facebook Login', `width=${width},height=${height},left=${left},top=${top}`);
-    setTimeout(() => {
-        facebookLoginWindow.close();
-        router.push({ name: 'home' });
-    }, 2660);
+    window.addEventListener('storage', () => {
+        if (JSON.parse(localStorage.getItem('isLoggedIn'))) {
+            facebookLoginWindow.close();
+            router.push({ name: 'home' });
+        } else {
+            toast.info('login')
+        }
+    })
 };
 
 </script>
@@ -118,7 +129,7 @@ const loginWithFacebook = () => {
     max-width: 450px;
     margin: 10% auto;
     padding: 24px;
-    border-radius: 12px;    
+    border-radius: 12px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     background-color: #2a2a2a;
     text-align: center;
@@ -128,21 +139,21 @@ const loginWithFacebook = () => {
     align-items: center;
 }
 
-#socialLabel{
+#socialLabel {
     text-align: left;
     padding: 0px 2px;
 }
 
-#socialBtn{
+#socialBtn {
     display: flex;
     justify-content: space-between;
 }
 
-#google{
+#google {
     margin-right: 5px;
 }
 
-#facebook{
+#facebook {
     margin-left: 5px;
 }
 
@@ -181,7 +192,7 @@ input {
     padding: 12px 10px;
     border-radius: 8px;
     border: 1px solid #444;
-    background-color: #3a3a3a;  
+    background-color: #3a3a3a;
     color: #f5f5f5;
     transition: border-color 0.3s, box-shadow 0.3s;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
